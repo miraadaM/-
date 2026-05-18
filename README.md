@@ -1,4 +1,4 @@
-# MineMind Arena
+# Сапёр
 
 Level 4 prototype for a modern Minesweeper web platform.
 
