@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="MineMind Arena - современная платформа Сапера с daily challenge, AI Coach, городскими лигами и Pro-скинами."
+    />
+    <title>MineMind Arena</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="brand" id="brandButton" type="button" aria-label="MineMind Arena">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img" aria-label="">
+              <path d="M24 4 42 14v20L24 44 6 34V14L24 4Z" />
+              <path d="M24 11 35 17v13l-11 7-11-7V17l11-6Z" />
+              <path d="M18 25h12M24 19v12" />
+            </svg>
+          </span>
+          <span>
+            <strong>MineMind</strong>
+            <small>Arena</small>
+          </span>
+        </button>
+
+        <nav class="mode-tabs" id="modeTabs" aria-label="Режим игры"></nav>
+
+        <div class="top-actions">
+          <button class="icon-button" id="themeToggle" type="button" title="Тема" aria-label="Сменить тему">
+            <span aria-hidden="true">◐</span>
+          </button>
+          <button class="profile-pill" id="profileButton" type="button">
+            <span id="profileInitials">MM</span>
+            <span id="profileName">Игрок</span>
+          </button>
+          <button class="pro-button" id="upgradeButton" type="button">Upgrade to Pro</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <aside class="panel rail-panel" aria-label="Профиль и статистика">
+          <section class="identity-strip">
+            <div>
+              <span class="eyebrow">Городская лига</span>
+              <h1 id="cityLeague">Рим</h1>
+            </div>
+            <span class="league-rank" id="leagueRank">#--</span>
+          </section>
+
+          <section class="stat-grid" id="statGrid"></section>
+
+          <section class="panel-section">
+            <div class="section-heading">
+              <h2>Сложность</h2>
+              <span id="difficultyLabel">Medium</span>
+            </div>
+            <div class="difficulty-tabs" id="difficultyTabs" aria-label="Сложность"></div>
+          </section>
+
+          <section class="panel-section">
+            <div class="section-heading">
+              <h2>История</h2>
+              <button class="text-button" id="clearHistoryButton" type="button">Очистить</button>
+            </div>
+            <div class="history-list" id="historyList"></div>
+          </section>
+        </aside>
+
+        <section class="game-stage" aria-label="Игровая зона">
+          <div class="game-toolbar">
+            <div class="status-lockup">
+              <span class="status-dot" id="statusDot"></span>
+              <div>
+                <span class="eyebrow" id="modeEyebrow">Daily Challenge</span>
+                <h2 id="gameStatus">Готово</h2>
+              </div>
+            </div>
+            <div class="metric-row" id="metricRow"></div>
+            <div class="toolbar-actions">
+              <button class="tool-button" id="newGameButton" type="button">
+                <span aria-hidden="true">↻</span>
+                Новая
+              </button>
+              <button class="tool-button" id="flagModeButton" type="button" aria-pressed="false">
+                <span aria-hidden="true">!</span>
+                Флаг
+              </button>
+            </div>
+          </div>
+
+          <div class="board-wrap" id="boardWrap">
+            <div class="board-glow" aria-hidden="true"></div>
+            <div class="board" id="board" role="grid" aria-label="Поле Сапера"></div>
+          </div>
+
+          <div class="stage-footer">
+            <div class="daily-seed">
+              <span class="eyebrow">Seed</span>
+              <strong id="seedLabel">--</strong>
+            </div>
+            <div class="accuracy-strip" id="accuracyStrip"></div>
+          </div>
+        </section>
+
+        <aside class="panel insights-panel" aria-label="AI Coach и лидерборд">
+          <section class="coach-header">
+            <div>
+              <span class="eyebrow">AI Coach</span>
+              <h2 id="coachTitle">Анализ поля</h2>
+            </div>
+            <span class="pro-badge" id="proBadge">Free</span>
+          </section>
+
+          <section class="coach-card">
+            <div class="risk-meter" aria-label="Оценка риска">
+              <span id="riskMeterFill"></span>
+            </div>
+            <p id="coachText">Откройте первую клетку, и тренер начнет считать безопасные ходы.</p>
+            <div class="coach-actions">
+              <button class="tool-button" id="coachHighlightButton" type="button">Подсветить</button>
+              <button class="tool-button primary" id="coachApplyButton" type="button">Применить</button>
+              <button class="tool-button" id="riskToggleButton" type="button" aria-pressed="false">Risk map</button>
+            </div>
+          </section>
+
+          <!-- <section class="panel-section">
+            <div class="section-heading">
+              <h2>Daily Leaderboard</h2>
+              <span id="leaderboardDate">Сегодня</span>
+            </div>
+            <div class="leaderboard" id="leaderboard"></div>
+          </section> -->
+
+          <section class="pro-panel">
+            <div>
+              <span class="eyebrow">MineMind Pro</span>
+              <h2>Скины, расширенный Coach, городская аналитика</h2>
+            </div>
+            <button class="pro-button wide" id="proPanelButton" type="button">Upgrade to Pro</button>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <dialog class="dialog" id="profileDialog">
+      <form method="dialog" class="dialog-content" id="profileForm">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">Профиль</span>
+            <h2>Лига и прогресс</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit" aria-label="Закрыть">×</button>
+        </div>
+        <label>
+          Имя игрока
+          <input id="nameInput" name="name" autocomplete="nickname" maxlength="24" />
+        </label>
+        <label>
+          Город
+          <select id="cityInput" name="city">
+            <option>Рим</option>
+            <option>Алматы</option>
+            <option>Астана</option>
+            <option>Москва</option>
+            <option>Берлин</option>
+            <option>Тбилиси</option>
+            <option>Нью-Йорк</option>
+          </select>
+        </label>
+        <label>
+          Скин доски
+          <select id="skinInput" name="skin">
+            <option value="signal">Signal</option>
+            <option value="ember">Ember Pro</option>
+            <option value="mint">Mint Pro</option>
+          </select>
+        </label>
+        <menu>
+          <button class="tool-button" value="cancel" type="submit">Отмена</button>
+          <button class="tool-button primary" id="saveProfileButton" value="default" type="submit">Сохранить</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <dialog class="dialog" id="proDialog">
+      <form method="dialog" class="dialog-content pro-dialog" id="proForm">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">Монетизация</span>
+            <h2>MineMind Pro</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit" aria-label="Закрыть">×</button>
+        </div>
+        <div class="price-row">
+          <strong>$4.99</strong>
+          <span>месяц</span>
+        </div>
+        <ul class="pro-list">
+          <li>Безлимитный AI Coach с вероятностной картой</li>
+          <li>Премиальные скины поля и клеток</li>
+          <li>Городские разборы: где вы теряете темп</li>
+          <li>Stripe checkout-ready CTA для реальной оплаты</li>
+        </ul>
+        <menu>
+          <button class="tool-button" id="demoProButton" value="default" type="submit">Активировать demo Pro</button>
+          <button class="pro-button" id="stripeButton" value="default" type="submit">Stripe Checkout</button>
+        </menu>
+      </form>
+    </dialog>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>
