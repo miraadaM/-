@@ -7,7 +7,6 @@ Level 4 prototype for a modern Minesweeper web platform.
 - Full Minesweeper engine: seeded mines, flood reveal, flags, chording, win/loss states.
 - Daily Challenge: deterministic board by date and difficulty.
 - AI Coach: explainable probability hints, safe move detection, flag recommendations, risk map.
-- Social layer: city-based daily leaderboard with local user placement.
 - Retention: profile, city league, game history, win rate, streaks, best score per mode/difficulty.
 - Monetization: Upgrade to Pro flow, premium skins, Stripe checkout-ready CTA.
 - Mobile play: responsive board, flag mode, long-press flagging, adaptive panels.
